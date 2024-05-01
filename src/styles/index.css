@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+      /* Brand colors */
+      --primary: 255, 179, 11;
+  
+      /* Text and background */
+      --text: 98 106 126;
+      --background: 247, 249, 251;
+  
+      /* radius */
+      --button-radius: 10px;
+    }
+  }
