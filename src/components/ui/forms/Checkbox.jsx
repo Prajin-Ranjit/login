@@ -1,13 +1,15 @@
-import * as React from "react"
+import * as React from "react";
 import { twMerge } from "tailwind-merge";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { FaCheck } from "@react-icons/all-files/fa/FaCheck";
 
-const Checkbox = ({label, className, id}) => {
+const Checkbox = React.forwardRef(({ label, className, id, ...props }, ref) => {
   return (
     <div className="flex flex-row items-center gap-3 mt-4">
       <CheckboxPrimitive.Root
+        ref={ref}
         id={id}
+        {...props}
         className={twMerge(
           "peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-white",
           className
@@ -27,6 +29,6 @@ const Checkbox = ({label, className, id}) => {
       </label>
     </div>
   );
-};
+});
 
 export default Checkbox;
