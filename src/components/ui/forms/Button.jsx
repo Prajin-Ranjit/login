@@ -8,6 +8,7 @@ const Button = ({
   disabled = false,
   loading = false,
   className,
+  ...props
 }) => {
   return (
     <button
@@ -17,6 +18,7 @@ const Button = ({
       )}
       type={type}
       disabled={disabled}
+      {...props}
     >
       {loading && <SpinnerSVG fill="rgba(var(--background))" />}
       {label}

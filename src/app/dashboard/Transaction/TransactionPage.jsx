@@ -64,15 +64,13 @@ const TransactionPage = () => {
   }
 
   return (
-    <main className="flex flex-col w-full h-full gap-10 p-10">
+    <>
       <section className="flex flex-row items-center w-full h-12 gap-4 px-10 text-sm font-medium rounded-md shrink-0 bg-background">
-        <button type="button" className="text-gray-500">
-          Dashboard
-        </button>
+        <span className="text-gray-500">Dashboard</span>
         <FaAngleRight className="text-gray-500" />
         <button type="button">Transaction</button>
       </section>
-      <section className="bg-background">
+      <section className="w-full bg-background">
         <Table>
           <TableHeader>
             <TableRow>
@@ -101,10 +99,10 @@ const TransactionPage = () => {
             ))}
           </TableBody>
         </Table>
-        <div className="flex flex-row items-center justify-center gap-4">
+        <div className="flex flex-row items-center justify-end gap-4 mt-3 text-gray-400">
           <button
             onClick={previousPage}
-            className="flex flex-row gap-2 text-sm font-semibold items-center px-3 py-1.5 hover:bg-gray-100 rounded-md"
+            className="flex flex-row gap-2 text-sm font-semibold items-center px-3 py-1.5 hover:bg-gray-100 rounded-md hover:text-gray-600"
           >
             prev
           </button>
@@ -113,7 +111,7 @@ const TransactionPage = () => {
               <button
                 key={n}
                 onClick={() => goToPage(n)}
-                className="p-2 text-sm font-semibold rounded-md hover:bg-gray-100"
+                className="p-2 text-sm font-semibold rounded-md hover:bg-gray-100 hover:text-gray-600"
               >
                 {n}
               </button>
@@ -121,13 +119,13 @@ const TransactionPage = () => {
           </div>
           <button
             onClick={nextPage}
-            className="flex flex-row gap-2 text-sm font-semibold items-center px-3 py-1.5 hover:bg-gray-100 rounded-md"
+            className="flex flex-row gap-2 text-sm font-semibold items-center px-3 py-1.5 hover:bg-gray-100 rounded-md hover:text-gray-600"
           >
             next
           </button>
         </div>
       </section>
-    </main>
+    </>
   );
 };
 

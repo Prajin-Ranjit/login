@@ -13,14 +13,21 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "../../components/ui/popover/Popover";
-import { useUserContext } from "../../components/context/LoggedInUserProvider";
+import {
+  useSetUserContext,
+  useUserContext,
+} from "../../components/context/LoggedInUserProvider";
 import Loader from "../../components/ui/loading/Loader";
+import Button from "../../components/ui/forms/Button";
 
 const Layout = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const getUser = useUserContext();
-  const getTokenFromLocalStorage = localStorage.getItem('token')
+  const getTokenFromLocalStorage = localStorage.getItem("token");
+  const setUser = useSetUserContext();
+
+  const [menuState, setMenuState] = useState(false);
 
   useEffect(() => {
     // checks if either the current logged in data in state is available or if token is still there in the local storage
@@ -31,8 +38,14 @@ const Layout = () => {
     }
   }, []);
 
-  // show loader until the page is ready 
+  // show loader until the page is ready
   if (loading) return <Loader />;
+
+  function logout() {
+    setUser({});
+    localStorage.removeItem("token");
+    navigate("/");
+  }
 
   return (
     <section className="flex flex-col h-screen">
@@ -45,7 +58,7 @@ const Layout = () => {
             className="hidden sm:block w-28"
           />
           <div className="flex flex-row items-center gap-3">
-            <button type="button">
+            <button type="button" onClick={() => setMenuState(!menuState)}>
               {" "}
               <GiHamburgerMenu className="w-6 h-6 text-gray-500" />
             </button>
@@ -65,13 +78,29 @@ const Layout = () => {
                 className="object-cover w-10 h-10 rounded-full"
               />
             </PopoverTrigger>
-            <PopoverContent>Place content for the popover here.</PopoverContent>
+            <PopoverContent className="flex flex-col gap-2">
+              <Button
+                type="button"
+                className="text-background"
+                label="Profile"
+              />
+              <Button
+                type="button"
+                className="text-background"
+                label="Logout"
+                onClick={logout}
+              />
+            </PopoverContent>
           </Popover>
         </div>
       </header>
       {/* left side navigation menu */}
       <section className="flex flex-row h-full">
-        <nav className="w-64 h-full px-5 py-10 bg-secondary shrink-0">
+        <nav
+          className={`w-64 h-full px-5 py-10 transition-all duration-200 ease-in-out bg-secondary shrink-0 ${
+            menuState ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
           <ul className="space-y-2">
             <li className="flex flex-row items-center gap-3 px-5 py-2 rounded-md cursor-pointer text-background hover:bg-background/10 bg-background/10">
               <AiOutlineTransaction className="w-5 h-5" />
@@ -92,7 +121,9 @@ const Layout = () => {
           </ul>
         </nav>
         {/* rest of the body */}
-        <Outlet />
+        <main className={`flex flex-col w-full h-full gap-10 p-10 transition-all duration-200 ease-in-out ${menuState ? 'ml-0' : '-ml-64'}`}>
+          <Outlet />
+        </main>
       </section>
     </section>
   );

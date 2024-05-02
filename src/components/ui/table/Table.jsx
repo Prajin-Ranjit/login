@@ -5,7 +5,7 @@ const Table = React.forwardRef(({ className, ...props }, ref) => (
   <div className="relative w-full overflow-auto">
     <table
       ref={ref}
-      className={twMerge("w-full caption-bottom text-sm", className)}
+      className={twMerge("w-full caption-bottom text-sm min-w-[700px]", className)}
       {...props}
     />
   </div>
