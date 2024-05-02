@@ -8,8 +8,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useLogin } from "../../lib/hooks/useApi";
 import { toast } from "react-toastify";
 import { useSetUserContext } from "../../components/context/LoggedInUserProvider";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = ({ registrationState, setRegistrationState }) => {
+  const navigate  = useNavigate()
+  
   // hook for login
   const { mutate, isPending } = useLogin();
 
@@ -34,6 +37,12 @@ const SignIn = ({ registrationState, setRegistrationState }) => {
         form.reset();
         toast.success(dataSuccess?.data[0]?.return_msg);
         setUser(dataSuccess?.data[0])
+        // local storage only to preview the persist login feature/remember me
+        // local storage shouldnt be used for storing token or sensitive data
+        if(data?.remember){
+          localStorage.setItem('token', dataSuccess?.data[0]?.jwt_token)
+        }
+        navigate("/dashboard")
       },
       onError: (error) => {
         console.log(error?.response?.data);
@@ -50,7 +59,7 @@ const SignIn = ({ registrationState, setRegistrationState }) => {
           : "delay-300 translate-x-0 opacity-100"
       }`}
     >
-      <h2 className="text-4xl font-bold text-black border-b-4 border-primary w-fit pb-1 text-primary">
+      <h2 className="pb-1 text-4xl font-bold border-b-4 text-secondary border-secondary w-fit">
         LOGIN
       </h2>
       <span className="mt-3 mb-4 text-center">

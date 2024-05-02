@@ -1,5 +1,5 @@
 import { AxiosInstancePublic } from "../api/AxiosInstance";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 // Function for login using axios
 const login = async (loginData) => {

@@ -29,7 +29,7 @@ const Registration = ({ registrationState, setRegistrationState }) => {
           : "translate-x-full opacity-0"
       }`}
     >
-      <h2 className="text-4xl font-bold text-black border-b-4 border-primary w-fit pb-1 text-primary">
+      <h2 className="text-4xl font-bold text-secondary border-b-4 border-secondary w-fit pb-1">
         Sign Up
       </h2>
       <span className="mt-3 mb-4 text-center">

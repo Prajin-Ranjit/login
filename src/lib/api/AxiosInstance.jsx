@@ -8,4 +8,5 @@ export const AxiosInstancePublic = axios.create({
 
 export const AxiosInstance = axios.create({
   baseURL: baseUrl,
+  headers: { "Content-Type": "application/json" },
 });
